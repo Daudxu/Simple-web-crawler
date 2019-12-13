@@ -1,6 +1,7 @@
 import time
+import re
 from selenium import webdriver
-# from taskModel import taskJobModel
+from taskModel import taskJobModel
 from time import sleep
 from lxml import etree
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -33,6 +34,10 @@ def taskwebdriver():
         s3 = money.get_attribute('innerHTML')
         s4 = goods.get_attribute('innerHTML')
         print(s1, 'is', s2, 'is', s3, "is", s4)
+
+        taskObj = taskJobModel(s1,s2,s3,s4)
+        taskObj.savedate()
+
     # len(lis)
     # driver.refresh()  # 刷新打开的页面
     print('关闭浏览器')
