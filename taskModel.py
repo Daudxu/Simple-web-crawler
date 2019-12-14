@@ -30,9 +30,14 @@ class taskJobModel():
                 (self.url))
             # 是否有重复数据
             repetition1 = self.cursor.fetchone()
-            regular_1 = re.findall(r"/\/(.+)\/", self.url)
-            urltype = re.findall(r"\/(.+)", regular_1[0])
-            print(urltype[0])
+            if re.match(r'^https?:/{2}\w.+$', self.url):
+                regular_1 = re.findall(r"/\/(.+)\/", self.url)
+                urltype = re.findall(r"\/(.+)", regular_1[0])
+                print(urltype[0])
+            else:
+                urltype = ""
+                print("This looks invalid.")
+
             if repetition1:
                 self.cursor.execute(
                     """insert into mtr_spider_data(title, author, resourcese_url, amount, module_type, is_lock)
